@@ -99,7 +99,10 @@ If you encounter Kafka broker connection errors, follow these steps:
    ```bash
    sudo systemctl restart kafka
    ```
-
+If redis-server is already in use :
+   ```bash
+   sudo systemctl stop redis
+   ```
 ---
 
 **Note**: This README assumes that `worker.py` and `client.py` are set up to communicate with Kafka and Redis correctly and handle tasks as required.
