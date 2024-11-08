@@ -33,7 +33,11 @@ pip install kafka-python redis
 
 ### Step 4: Start Zookeeper and Kafka
 1. Open a third terminal (do not activate the virtual environment here).
-2. Start Zookeeper and Kafka by checking their statuses:
+   ```bash
+   sudo systemctl start zookeeper
+   sudo systemctl start kafka
+   ```
+3. Start Zookeeper and Kafka by checking their statuses:
    ```bash
    sudo systemctl status zookeeper
    sudo systemctl status kafka
