@@ -109,7 +109,9 @@ Step 2:
    redis-server
    ```
 ---
+### If six module isn't install properly
 
+Please run the code from the folder 'confluent-kafka'
 **Note**: This README assumes that `worker.py` and `client.py` are set up to communicate with Kafka and Redis correctly and handle tasks as required.
 ``` 
 
