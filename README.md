@@ -99,9 +99,14 @@ If you encounter Kafka broker connection errors, follow these steps:
    ```bash
    sudo systemctl restart kafka
    ```
-If redis-server is already in use :
+### Redis Server in use
+Step 1:
    ```bash
    sudo systemctl stop redis
+   ```
+Step 2:
+   ```bash
+   redis-server
    ```
 ---
 
