@@ -1,6 +1,4 @@
-
-
-
+# RR-Team-20-yadtq-yet-another-distributed-task-queue-
 # Yadtq Project Setup Guide
 
 This guide will walk you through setting up and running the necessary environment, services, and application components for the Yadtq project.
@@ -54,7 +52,6 @@ In the third terminal, start the Redis server:
 ```bash
 redis-server
 ```
-
 ### Step 6: Open Redis CLI
 1. Use a fourth terminal for testing and checking purposes.
 2. Access the Redis CLI:
@@ -109,10 +106,3 @@ Step 2:
    redis-server
    ```
 ---
-### If six module isn't install properly
-
-Please run the code from the folder 'confluent-kafka'
-**Note**: This README assumes that `worker.py` and `client.py` are set up to communicate with Kafka and Redis correctly and handle tasks as required.
-``` 
-
-This README file outlines each step and command in detail, providing a clear setup and troubleshooting guide.
