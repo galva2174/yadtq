@@ -1,4 +1,3 @@
-# yadtq.py
 import os
 import json
 import uuid
@@ -19,18 +18,25 @@ class YADTQ:
         task_id = str(uuid.uuid4())
         task = {"task_id": task_id, "task": task_type, "args": args}
         self.redis_client.hset(task_id, "status", "queued")
+        self.redis_client.hset(task_id, "result", "")  # Initialize an empty result
         self.producer.send('task_queue1', task)
         self.producer.flush()  # Ensure that the message is sent immediately
         print(f"Task sent with ID: {task_id}")  # Add a print statement for logging
         return task_id
 
     def get_task_status(self, task_id):
-        return self.redis_client.hgetall(task_id)
+        task_data = self.redis_client.hgetall(task_id)
+        if not task_data:
+            return {"status": "not_found", "result": "Task ID not found in the system."}
+        
+        status = task_data.get(b"status", b"").decode('utf-8')
+        result = task_data.get(b"result", b"").decode('utf-8')
+
+        return {"status": status, "result": result}
 
 # Initialization function for client/worker
 def config(broker, backend):
     broker = "localhost:9092"
     backend = "localhost"
     return YADTQ(broker, backend)
-
 

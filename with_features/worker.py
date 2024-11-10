@@ -18,33 +18,35 @@ def process_task(task):
     # Mark as processing
     yadtq_system.redis_client.hset(task_id, "status", "processing")
     
-    # Process the task based on the operation type
-    if task_type == "add":
-        result = sum(args)
-    elif task_type == "subtract":
-        result = args[0] - sum(args[1:])
-    elif task_type == "multiply":
-        result = 1
-        for num in args:
-            result *= num
-    elif task_type == "divide":
-        try:
+    try:
+        # Process the task based on the operation type
+        if task_type == "add":
+            result = sum(args)
+        elif task_type == "subtract":
+            result = args[0] - sum(args[1:])
+        elif task_type == "multiply":
+            result = 1
+            for num in args:
+                result *= num
+        elif task_type == "divide":
             result = args[0]
             for num in args[1:]:
                 if num == 0:
-                    result = "Error: Division by zero"
-                    break
+                    raise ValueError("Division by zero error.")
                 result /= num
-        except Exception as e:
-            result = f"Error: {str(e)}"
-    else:
-        result = "unknown_task"
+        else:
+            raise ValueError("Unknown operation")
 
-    # Mark as success and store the result
-    yadtq_system.redis_client.hset(task_id, "status", "success")
-    yadtq_system.redis_client.hset(task_id, "result", result)
+        # Mark as success and store the result
+        yadtq_system.redis_client.hset(task_id, "status", "success")
+        yadtq_system.redis_client.hset(task_id, "result", str(result))
 
-    # Log the result of the task
+    except Exception as e:
+        # If there's an error, mark as failed and store the error message
+        yadtq_system.redis_client.hset(task_id, "status", "failed")
+        yadtq_system.redis_client.hset(task_id, "result", f"Error: {str(e)}")
+
+    # Log the result or error of the task
     logging.info(f"Task {task_id} processed with result: {result}")
     print(f"Task {task_id} processed with result: {result}")
 
