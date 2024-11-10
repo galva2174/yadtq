@@ -26,7 +26,6 @@ class YADTQ:
     def get_task_status(self, task_id):
         return self.redis_client.hgetall(task_id)
 
-# Initialization function for client/worker
 def config(broker, backend):
     broker = "localhost:9092"
     backend = "localhost"
