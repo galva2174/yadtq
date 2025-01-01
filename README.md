@@ -106,3 +106,36 @@ Step 2:
    redis-server
    ```
 ---
+
+### Kafka Commands to Check and Alter Number of Partitions
+
+To check the number of partitions for a Kafka topic and then alter it, use the following commands:
+
+```bash
+# Check the number of partitions
+/usr/local/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic task_queue1
+
+# Alter the number of partitions
+/usr/local/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic task_queue1 --partitions 3
+```
+
+
+### Run the Python Worker Script
+```bash
+python worker.py <worker_id>
+```
+
+### Flush All Data from Redis
+```bash
+redis-cli FLUSHALL
+```
+
+### Get the Heartbeat of `worker_1`
+```bash
+redis-cli GET heartbeat:worker_1
+```
+
+### Get All Tasks Associated with a Worker
+```bash
+redis-cli HGETALL worker:<worker_id>:tasks
+```
